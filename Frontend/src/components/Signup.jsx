@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import Login from "./Login";
 import { useForm } from "react-hook-form";
 
-function Login() {
+function Signup() {
   const {
     register,
     handleSubmit,
@@ -11,18 +11,37 @@ function Login() {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <div className="text-slate-800 bg-white dark:bg-slate-900 dark:text-white">
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
-
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+    <>
+      <div className="flex h-screen items-center justify-center text-slate-800 bg-white dark:bg-slate-900 dark:text-white">
         <div className="modal-box">
           <form
             onSubmit={handleSubmit(onSubmit)}
             method="dialog"
             className="space-y-4"
           >
-            <h3 className="font-bold text-lg">Login!</h3>
+            <h3 className="font-bold text-lg">Sign up!</h3>
+
             <div className="space-y-4 mt-10">
+              <label className="input input-bordered flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 1024 1024"
+                  fill="currentColor"
+                  className="h-4 w-4 opacity-70"
+                >
+                  <path d="M628.736 528.896A416 416 0 0 1 928 928H96a415.87 415.87 0 0 1 299.264-399.104L512 704zM720 304a208 208 0 1 1-416 0a208 208 0 0 1 416 0" />
+                </svg>
+                <input
+                  {...register("name", { required: true })}
+                  type="text"
+                  className="grow"
+                  placeholder="Name"
+                />
+              </label>
+              {errors.name && (
+                <span className="text-xs text-red-500">Name is required</span>
+              )}
+
               <label className="input input-bordered flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +63,6 @@ function Login() {
               {errors.email && (
                 <span className="text-xs text-red-500">Email is required</span>
               )}
-
               <label className="input input-bordered flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -74,18 +92,19 @@ function Login() {
             <div className="modal-action">
               <div className="flex">
                 <div className="w-1/2">
-                  Signup<p>Not registerd? </p>
-                  <Link
-                    to="/signup"
+                  <p>Already registerd? </p>
+                  <button
                     className="underline text-blue-500 cursor-pointer"
+                    onClick={() =>
+                      document.getElementById("my_modal_5").showModal()
+                    }
                   >
-                    Signup
-                  </Link>
+                    Login
+                  </button>{" "}
+                  <Login></Login>
                 </div>
                 <div className="flex w-1/2">
-                  <button type="submit" className="btn btn-secondary">
-                    Login
-                  </button>
+                  <button className="btn btn-secondary">Register</button>
                   <form method="dialog">
                     {/* if there is a button in form, it will close the modal */}
 
@@ -98,9 +117,9 @@ function Login() {
             </div>
           </form>
         </div>
-      </dialog>
-    </div>
+      </div>
+    </>
   );
 }
 
-export default Login;
+export default Signup;

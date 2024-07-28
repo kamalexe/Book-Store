@@ -6,18 +6,17 @@ function Navbar() {
   );
 
   useEffect(() => {
+    // Apply the theme on initial load and whenever the theme changes
     if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      document.body.classList.add("dark");
-      document.body.classList.remove("light");
+      document.documentElement.setAttribute("data-theme", "dark");
+      document.body.classList.add("dark"); // Also apply to the body
+      localStorage.setItem("theme", "dark"); // Store the theme preference
     } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      document.body.classList.add("light");
+      document.documentElement.setAttribute("data-theme", "light");
       document.body.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
-  }, [theme]);
+  }, [theme]); // Add theme to the dependency array
 
   const [sticky, setSticky] = useState(false);
   useEffect(() => {
@@ -33,6 +32,12 @@ function Navbar() {
       window.removeEventListener("scroll", handelScroll);
     };
   }, []);
+  const [searchInput, setSearchInput] = useState(""); // Initialize search input state
+
+  // Handle input change
+  const handleSearchChange = (event) => {
+    setSearchInput(event.target.value); // Update state on input change
+  };
   const navItems = (
     <>
       <li>
@@ -66,7 +71,7 @@ function Navbar() {
   return (
     <div>
       <div
-        className={`z-40 max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 ${
+        className={`z-40 max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 text-slate-800 bg-white dark:bg-slate-900 dark:text-white ${
           sticky
             ? "sticky-navbar shadow-md bg-base-100 duration-300 transition-all ease-in-out"
             : "bg-base-100"
@@ -115,6 +120,8 @@ function Navbar() {
                   type="text"
                   className="grow outline-none"
                   placeholder="Search"
+                  value={searchInput} // Set the value of the input
+                  onChange={handleSearchChange} // Handle input change
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -7,7 +7,6 @@ import Card from "./Card";
 function Freebook() {
   // Filter the data to include only free books
   const filterData = list.filter((item) => item.category === "free");
-  console.log(filterData);
 
   var settings = {
     dots: true,
