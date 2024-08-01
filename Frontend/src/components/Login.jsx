@@ -13,7 +13,6 @@ function Login() {
   return (
     <div className="text-slate-800 bg-white dark:bg-slate-900 dark:text-white">
       {/* Open the modal using document.getElementById('ID').showModal() method */}
-
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <form
@@ -62,7 +61,7 @@ function Login() {
                   {...register("password", { required: true })}
                   type="password"
                   className="grow"
-                  placeholder="password"
+                  placeholder="Password"
                 />
               </label>
               {errors.password && (
@@ -74,7 +73,7 @@ function Login() {
             <div className="modal-action">
               <div className="flex">
                 <div className="w-1/2">
-                  Signup<p>Not registerd? </p>
+                  <p>Not registered?</p>
                   <Link
                     to="/signup"
                     className="underline text-blue-500 cursor-pointer"
@@ -86,13 +85,18 @@ function Login() {
                   <button type="submit" className="btn btn-secondary">
                     Login
                   </button>
-                  <form method="dialog">
-                    {/* if there is a button in form, it will close the modal */}
 
-                    <div className="space-x-4">
-                      <button className="btn">Close</button>
-                    </div>
-                  </form>
+                  <div className="space-x-4">
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() =>
+                        document.getElementById("my_modal_5").close()
+                      }
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

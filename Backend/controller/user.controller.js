@@ -11,7 +11,7 @@ export const signup = async(req, res) => {
         const hashedPassword = await bcryptjs.hash(password, 10);
         const createdUser = new User({ fullName, email,password: hashedPassword });
         await createdUser.save();
-        res.status(201).json({message:"Success"});
+        res.status(201).json({message:"Success",user: {fullName:createdUser.fullName,email:createdUser.email}});
     }catch(e){
         console.error(e);
         res.status(500).json({error: 'An error occurred while signing up.'});
@@ -36,7 +36,7 @@ export const login = async (req, res) => {
         }
 
         else{
-            res.status(200).json({message:'Login successful', user: {_id:user._id,fullName:user.fullName,email:user.email}});
+            res.status(201).json({message:'Login successful', user: {_id:user._id,fullName:user.fullName,email:user.email}});
         }
     }catch(e){
         console.log(e);
