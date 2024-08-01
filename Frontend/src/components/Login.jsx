@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function Login() {
   const {
@@ -8,8 +10,29 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    console.log(data.fullName);
+    const useInfo = {
+      fullName: data.fullName,
+      email: data.email,
+      password: data.password,
+    };
 
+    await axios
+      .post("http://localhost:4001/user/login", useInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          toast.success("Successfully Login!");
+        }
+        localStorage.setItem("Users", JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        if (err.response) {
+          toast.error("ERROR: " + err.response.data.error);
+        }
+      });
+  };
   return (
     <div className="text-slate-800 bg-white dark:bg-slate-900 dark:text-white">
       {/* Open the modal using document.getElementById('ID').showModal() method */}

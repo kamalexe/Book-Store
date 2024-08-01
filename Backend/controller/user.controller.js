@@ -11,7 +11,7 @@ export const signup = async(req, res) => {
         const hashedPassword = await bcryptjs.hash(password, 10);
         const createdUser = new User({ fullName, email,password: hashedPassword });
         await createdUser.save();
-        res.status(201).json({message:"Success",user: {fullName:createdUser.fullName,email:createdUser.email}});
+        res.status(201).json({_id:createdUser._id,fullName:createdUser.fullName,email:createdUser.email});
     }catch(e){
         console.error(e);
         res.status(500).json({error: 'An error occurred while signing up.'});

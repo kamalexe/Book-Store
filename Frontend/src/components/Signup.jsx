@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Login from "./Login";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function Signup() {
   const [showLogin, setShowLogin] = useState(false);
@@ -25,13 +26,13 @@ function Signup() {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          alert("Success");
+          toast.success("Successfully Signup!");
         }
         localStorage.setItem("Users", JSON.stringify(res.data));
       })
       .catch((err) => {
         if (err.response) {
-          alert("ERROR:" + err.response.data.error);
+          toast.error("ERROR: " + err.response.data.error);
         }
       });
   };
