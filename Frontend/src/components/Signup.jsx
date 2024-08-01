@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Login from "./Login";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 function Signup() {
   const {
@@ -8,7 +9,23 @@ function Signup() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data.name);
+    const useInfo = {
+      fullName: data.name,
+      email: data.email,
+      password: data.password,
+    };
+    axios.post("http://localhost:4001/user/signup", useInfo).then((res) => {
+      console.log(res.data);
+      if (res.data) {
+        alert("Success");
+      }
+    }).catch((err) => {
+      alert("ERROR:" + err.message);
+
+    });
+  };
 
   return (
     <>

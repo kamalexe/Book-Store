@@ -1,9 +1,9 @@
 import express from 'express';
 import { getFreeBooks,getBook } from '../controller/book.controller.js';
 
-const router = express.Router();
+const bookRouter = express.Router();
 
-router.get('/', getBook);
-router.get('/free', getFreeBooks);
+bookRouter.get('/', getBook);
+bookRouter.get('/free', getFreeBooks);
 
-export default router;
+export default bookRouter;
