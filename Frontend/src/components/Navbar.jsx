@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import Login from "./Login";
 import { useAuth } from "../context/AuthProvider.jsx";
 import Logout from "../components/Logout";
+import CartModal from "../components/CartModal"; // Import the CartModal
 
 function Navbar() {
   const [authUser, setAuthUser] = useAuth();
+  const [isCartOpen, setIsCartOpen] = useState(false); // State for cart modal visibility
 
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -180,6 +182,7 @@ function Navbar() {
                 <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
               </svg>
             </label>
+
             {authUser ? (
               <Logout />
             ) : (
@@ -196,6 +199,26 @@ function Navbar() {
               </div>
             )}
           </div>
+          <button
+            className="btn btn-ghost relative"
+            onClick={() => setIsCartOpen(true)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              // width="1em"
+              height="2em"
+              viewBox="0 0 1200 1200"
+            >
+              <path
+                fill="currentColor"
+                d="M600 0C268.629 0 0 268.629 0 600s268.629 600 600 600s600-268.629 600-600S931.371 0 600 0M297.583 253.491l106.787 33.545c14.137 4.643 23.553 17.771 25.195 31.201l6.006 58.812l483.545 53.979c20.763 4.022 35.353 22.769 32.446 42.041l-30.029 169.188c-3.822 17.697-18.479 29.828-34.79 30.029H457.178l-8.423 47.974h407.959c21.332.751 36.957 16.995 37.207 35.962c-.885 21.638-18.325 35.801-37.207 36.035H405.542c-22.756-1.882-39.462-19.915-35.962-41.968l19.189-105.615l-30.029-295.236l-82.764-26.366c-9.6-3.2-16.806-9.219-21.606-18.019c-9.082-19.032-.599-40.104 15.601-49.219c9.246-4.806 18.276-5.405 27.612-2.343m162.598 559.497c31.066 0 56.25 25.184 56.25 56.25c0 31.065-25.184 56.25-56.25 56.25c-31.064 0-56.25-25.185-56.25-56.25c0-31.066 25.184-56.25 56.25-56.25m330.175 0c31.065 0 56.25 25.184 56.25 56.25c0 31.065-25.185 56.25-56.25 56.25s-56.25-25.185-56.25-56.25c0-31.066 25.185-56.25 56.25-56.25"
+              />
+            </svg>
+          </button>
+          <CartModal
+            isOpen={isCartOpen}
+            closeModal={() => setIsCartOpen(false)}
+          />
         </div>
       </div>
     </div>
