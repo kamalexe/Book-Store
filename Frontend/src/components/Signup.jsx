@@ -27,6 +27,9 @@ function Signup() {
         console.log(res.data);
         if (res.data) {
           toast.success("Successfully Signup!");
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 2000);
         }
         localStorage.setItem("Users", JSON.stringify(res.data));
       })

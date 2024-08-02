@@ -21,11 +21,14 @@ function Login() {
     await axios
       .post("http://localhost:4001/user/login", useInfo)
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
+          document.getElementById("my_modal_5").close();
           toast.success("Successfully Login!");
+          setTimeout(() => {
+            window.location.reload();
+            localStorage.setItem("Users", JSON.stringify(res.data));
+          }, 2000);
         }
-        localStorage.setItem("Users", JSON.stringify(res.data));
       })
       .catch((err) => {
         if (err.response) {
